@@ -19,6 +19,8 @@ class IPCASpider(scrapy.Spider):
             writer = csv.writer(csv_file, delimiter=';')
             for idx in ipca_indexes:
                 print(idx)
-                line = [idx['year_month'].replace("/", "-"), idx['ipca'].replace(",", ".")]
+                ym = idx['year_month'].split("/")
+                timestamp = "{}-{}".format(ym[1], ym[0])
+                line = [timestamp, idx['ipca'].replace(",", ".")]
                 print(line)
                 writer.writerow(line)
